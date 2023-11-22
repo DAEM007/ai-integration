@@ -1,6 +1,6 @@
 # Health chatbot with ai
 
-> *The aim of this project is to provide health solutions to patients. Patiients can enter the prompts for the chatbot in relations to their health problems and get solutions.*
+> *The aim of this project is to provide health solutions to patients. Patients can enter the prompts for the chatbot in relations to their health problems and get solutions.*
 
 ## Available Scripts
 
