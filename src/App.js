@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import AppLogo from './assets/app-logo.png';
 import CGLogo from './assets/open-ai.png';
+import axios from 'axios';
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -10,8 +11,19 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // communicate with API...
+    axios
+      .post('http://localhost:5555/chat', { prompt })
+      .then((res) => {
+        setResponse(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      }); 
 
   };
 
