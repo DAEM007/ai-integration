@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { Configuration, OpenAIapi } = require('openai');
+const { OpenAI } = require('openai');
 
 // server setup
 const app = express();
@@ -14,23 +14,41 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // chatgpt api endpoint setup
-const configuration = new Configuration({
-    apiKey: process.env.CHATBOT_KEY
+const openai = new OpenAI({
+    apiKey: process.env.CHATBOT_KEY,
 });
-
-const openai = new OpenAIapi(configuration);
 
 app.post('/chat', async (req, res) => {
     const { prompt } = req.body;
 
-    const completion = await openai.createCompletion({
-        model: 'text-curie-001',
-        prompt: prompt,
-        max_tokens: 2049,
+    const completion = await openai.chat.completions.create({
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+              "role": "system",
+              "content": "You are a helpful assistant."
+            },
+            {
+              "role": "user",
+              "content": prompt,
+            }
+          ],
     });
 
-    
+    res.send(completion.choices[0].message.content);
+    // console.log(completion.choices[0].message.content);
 
+});
+
+// start the server...
+const PORT = 5555;
+
+app.listen(PORT, (err) => {
+    if(err) {
+        console.log(err.message);
+    }
+    console.log(`server istening on port ${PORT}.`);
+    console.log(`http://localhost:${PORT}`);
 });
 
 
