@@ -19,10 +19,12 @@ function App() {
       .then((res) => {
         setResponse(res.data);
         setLoading(false);
+        setPrompt('');
       })
       .catch((err) => {
         console.log(err.message);
         setLoading(false);
+        setPrompt('');
       }); 
 
   };
