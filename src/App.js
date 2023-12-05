@@ -40,7 +40,7 @@ function App() {
           type='text'
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder='Ask me anything... :)'
+          placeholder='what is your health complaint... :)'
         />
         <button type='submit'>Ask</button>
       </form>
